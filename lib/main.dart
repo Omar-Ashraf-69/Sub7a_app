@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iste9far/constents.dart';
 import 'package:iste9far/screens/home_screen.dart';
 
 void main() {

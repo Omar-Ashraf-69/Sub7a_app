@@ -208,16 +208,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           CircularPercentIndicatorWidget(
-            precent: precent,
+            precent: calculatePercentage(),
             counter: counter,
             onPressed: () {
-              if (precent >= 1) {
+              if (precent == 1) {
                 precent = 0;
                 setState(() {});
               }
-              precent += (10 / goal) / 10;
+
               setingFun(
-                  callerVariable: counter, key: 'counter', value: counter + 1);
+                callerVariable: counter,
+                key: 'counter',
+                value: counter + 1,
+              );
               if (counter == goal) {
                 setingFun(callerVariable: counter, key: 'counter', value: 1);
               }
@@ -225,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 setingFun(callerVariable: sets, key: 'sets', value: sets + 1);
 
                 Fluttertoast.showToast(
-                  msg: "أحبَّ العملِ إلى اللَّهِ أدومُهُ وإن قلَّ",
+                  msg: "أحبَّ الاعملِ إلى اللَّهِ أدومُهُ وإن قلَّ",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 1,
@@ -298,5 +301,13 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  double calculatePercentage() {
+    if (goal == 0) {
+      return 0.0; // or any other suitable handling
+    } else {
+      return counter / goal;
+    }
   }
 }
