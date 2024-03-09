@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   double precent = 0;
   int counter = 0;
-  int goal = 0;
+  int goal = 33;
   bool isVisiable = false;
   int sets = 0;
 
@@ -154,34 +154,66 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CustomCounterTextButton(
                         number: '1000+',
-                        onTap: () => setingFun(
-                          callerVariable: goal,
-                          key: 'goal',
-                          value: goal + 1000,
-                        ),
+                        onTap: () {
+                          if(isLateGoalNotPossiable()){
+                            setingFun(
+                              callerVariable: counter, key: 'counter', value: 0,);
+                          }
+                          setingFun(
+                              callerVariable: goal, key: 'goal', value: goal +1000,);
+                          
+                        },
                       ),
                       CustomCounterTextButton(
                         number: '100+',
-                        onTap: () => setingFun(
-                            callerVariable: goal,
-                            key: 'goal',
-                            value: goal + 100),
+                        onTap: () {
+                          if(isLateGoalNotPossiable()){
+                            setingFun(
+                              callerVariable: counter, key: 'counter', value: 0,);
+                          }
+                          setingFun(
+                              callerVariable: goal, key: 'goal', value: goal +100,);
+                          
+                        },
                       ),
                       CustomCounterTextButton(
                         number: '100',
-                        onTap: () => setingFun(
-                            callerVariable: goal, key: 'goal', value: 100),
+                        onTap: (){
+                          if(isLateGoalNotPossiable()){
+                            setingFun(
+                              callerVariable: counter, key: 'counter', value: 0,);
+                          }
+                          setingFun(
+                              callerVariable: goal, key: 'goal', value: 100,);
+                          
+                        }
                       ),
                       CustomCounterTextButton(
                         number: '33',
-                        onTap: () => setingFun(
-                            callerVariable: goal, key: 'goal', value: 33),
+                        onTap: () {
+                          if(isLateGoalNotPossiable()){
+                            setingFun(
+                              callerVariable: counter, key: 'counter', value: 0,);
+                          }
+                          setingFun(
+                              callerVariable: goal, key: 'goal', value: 33,);
+                          
+                        },
                       ),
                       CustomCounterTextButton(
-                        number: '0',
-                        onTap: () => setingFun(
-                            callerVariable: goal, key: 'goal', value: 0),
-                      ),
+                          number: '0',
+                          onTap: () {
+                            setingFun(
+                              callerVariable: goal,
+                              key: 'goal',
+                              value: 0,
+                            );
+                            setingFun(
+                              callerVariable: counter,
+                              key: 'counter',
+                              value: 0,
+                            );
+                          }),
                     ],
                   ),
                 ),
@@ -304,10 +336,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   double calculatePercentage() {
-    if (goal == 0) {
+    if (goal == 0 || counter > goal) {
       return 0.0; // or any other suitable handling
     } else {
       return counter / goal;
+    }
+  }
+
+  bool isLateGoalNotPossiable() {
+    if (goal < counter) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
