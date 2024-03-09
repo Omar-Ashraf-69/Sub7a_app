@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:iste9far/constents.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  double precent = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 30,
+                    color: Colors.white,
                   ),
                 ),
                 Padding(
@@ -50,6 +59,7 @@ class HomeScreen extends StatelessWidget {
                         "39",
                         style: TextStyle(
                           fontSize: 35,
+                          color: Colors.white,
                         ),
                       ),
                       IconButton(
@@ -76,6 +86,116 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          const Text(
+            'استغفار',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const Text(
+            '17',
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: CircularPercentIndicator(
+              radius: 75,
+              animation: true,
+              animateFromLastPercent: true,
+              percent: precent,
+              center: IconButton(
+                onPressed: () {
+                  precent += 0.1;
+                  setState(() {
+                    if (precent >= 0.9) {
+                      precent = 0;
+                    }
+                  });
+                },
+                icon: Icon(
+                  Icons.ads_click_sharp,
+                  size: 50,
+                  color: Color(kPrimaryColor[0]),
+                ),
+              ),
+              backgroundColor: Color(kPrimaryColor[0]).withOpacity(0.25),
+              progressColor: Color(kPrimaryColor[0]),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const TrackingLineWidget(
+            label: ' : مرات التكرار',
+            repetationNum: 10,
+          ),
+          const TrackingLineWidget(
+            repetationNum: 2,
+            label: ' : المجموع',
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButtonWidget(
+        color: kPrimaryColor[0],
+      ),
+    );
+  }
+}
+
+class FloatingActionButtonWidget extends StatelessWidget {
+  const FloatingActionButtonWidget({
+    super.key,
+    required this.color,
+  });
+  final int color;
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      backgroundColor: Color(color),
+      shape: const CircleBorder(),
+      onPressed: () {},
+      child: const Icon(
+        Icons.refresh,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class TrackingLineWidget extends StatelessWidget {
+  const TrackingLineWidget({
+    super.key,
+    required this.repetationNum,
+    required this.label,
+  });
+  final int repetationNum;
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            repetationNum.toString(),
+            style: const TextStyle(
+              fontSize: 22,
+            ),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 22,
             ),
           ),
         ],

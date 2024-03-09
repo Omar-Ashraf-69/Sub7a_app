@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iste9far/constents.dart';
 import 'package:iste9far/screens/home_screen.dart';
 
 void main() {
@@ -21,12 +22,10 @@ class MyApp extends StatelessWidget {
               size: 30,
             )),
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(
-            
-          ),
+          bodyLarge: TextStyle(),
           bodyMedium: TextStyle(),
         ).apply(
-          bodyColor: Colors.white,
+          bodyColor: Color(kPrimaryColor[0]),
           displayColor: Colors.white,
         ),
         iconButtonTheme: const IconButtonThemeData(
@@ -41,7 +40,6 @@ class MyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            
             backgroundColor: const MaterialStatePropertyAll(Colors.white),
           ),
         ),
