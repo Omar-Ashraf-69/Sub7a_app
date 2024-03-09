@@ -22,11 +22,10 @@ class MyApp extends StatelessWidget {
               size: 30,
             )),
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(),
-          bodyMedium: TextStyle(),
-        ).apply(
-          bodyColor: Color(kPrimaryColor[0]),
-          displayColor: Colors.white,
+          bodyLarge: TextStyle(
+          ),
+          bodyMedium: TextStyle(
+          ),
         ),
         iconButtonTheme: const IconButtonThemeData(
           style: ButtonStyle(

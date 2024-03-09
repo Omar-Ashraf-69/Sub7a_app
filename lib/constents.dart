@@ -3,3 +3,4 @@ const kPrimaryColor = [
   0xFF61249F,
   0xFF162029,
 ];
+int hueColor = kPrimaryColor[0];
