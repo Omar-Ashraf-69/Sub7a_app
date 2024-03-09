@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iste9far/constents.dart';
-import 'package:iste9far/main.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:iste9far/widgets/circular_precent_indicator_widget.dart';
+import 'package:iste9far/widgets/custom_counter_text_button_widget.dart';
+import 'package:iste9far/widgets/floating_action_widget.dart';
+import 'package:iste9far/widgets/radio_widget.dart';
+import 'package:iste9far/widgets/tracking_line_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,52 +21,48 @@ class _HomeScreenState extends State<HomeScreen> {
   int goal = 0;
   bool isVisiable = false;
   int sets = 0;
-  setCounter(int value) async {
-    final SharedPreferences counter = await SharedPreferences.getInstance();
-    counter.setInt('counter', value);
-    getCounter();
+
+  void setingFun({
+    required int callerVariable,
+    required String key,
+    required int value,
+  }) async {
+    final SharedPreferences shared = await SharedPreferences.getInstance();
+    shared.setInt(key, value);
+    getingFun(callerVariable: callerVariable, key: key);
   }
 
-  getCounter() async {
-    final SharedPreferences count = await SharedPreferences.getInstance();
-
+  void getingFun({
+    required int callerVariable,
+    required String key,
+  }) async {
+    final SharedPreferences shared = await SharedPreferences.getInstance();
     setState(() {
-      counter = count.getInt('counter') ?? 0;
-    });
-  }
-
-  setGoal(int value) async {
-    final SharedPreferences goal = await SharedPreferences.getInstance();
-    goal.setInt('goal', value);
-    getGoal();
-  }
-
-  getGoal() async {
-    final SharedPreferences goa = await SharedPreferences.getInstance();
-
-    setState(() {
-      goal = goa.getInt('goal') ?? 0;
-    });
-  }
-
-  setSets(int value) async {
-    final SharedPreferences sets = await SharedPreferences.getInstance();
-    sets.setInt('sets', value);
-    getSets();
-  }
-
-  getSets() async {
-    final SharedPreferences set = await SharedPreferences.getInstance();
-    setState(() {
-      sets = set.getInt('sets') ?? 0;
+      if (key == 'counter') {
+        counter = shared.getInt(key) ?? 0;
+      } else if (key == 'sets') {
+        sets = shared.getInt(key) ?? 0;
+      } else if (key == 'goal') {
+        goal = shared.getInt(key) ?? 0;
+      }
     });
   }
 
   @override
   void initState() {
-    getCounter();
-    getGoal();
-    getSets();
+    getingFun(
+      callerVariable: counter,
+      key: 'counter',
+    );
+    getingFun(
+      callerVariable: sets,
+      key: 'sets',
+    );
+    getingFun(
+      callerVariable: goal,
+      key: 'goal',
+    );
+
     super.initState();
   }
 
@@ -114,7 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconButton(
                         onPressed: () {
                           if (goal != 0) {
-                            setGoal(goal - 1);
+                            setingFun(
+                                callerVariable: goal,
+                                key: 'goal',
+                                value: goal - 1);
                           }
                         },
                         icon: const Icon(
@@ -130,7 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       IconButton(
                         onPressed: () {
-                          setGoal(goal + 1);
+                          setingFun(
+                            callerVariable: goal,
+                            key: 'goal',
+                            value: goal + 1,
+                          );
                         },
                         icon: const Icon(
                           Icons.add_circle,
@@ -147,23 +154,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       CustomCounterTextButton(
                         number: '1000+',
-                        onTap: () => setGoal(goal + 1000),
+                        onTap: () => setingFun(
+                          callerVariable: goal,
+                          key: 'goal',
+                          value: goal + 1000,
+                        ),
                       ),
                       CustomCounterTextButton(
                         number: '100+',
-                        onTap: () => setGoal(goal + 100),
+                        onTap: () => setingFun(
+                            callerVariable: goal,
+                            key: 'goal',
+                            value: goal + 100),
                       ),
                       CustomCounterTextButton(
                         number: '100',
-                        onTap: () => setGoal(100),
+                        onTap: () => setingFun(
+                            callerVariable: goal, key: 'goal', value: 100),
                       ),
                       CustomCounterTextButton(
                         number: '33',
-                        onTap: () => setGoal(33),
+                        onTap: () => setingFun(
+                            callerVariable: goal, key: 'goal', value: 33),
                       ),
                       CustomCounterTextButton(
                         number: '0',
-                        onTap: () => setGoal(0),
+                        onTap: () => setingFun(
+                            callerVariable: goal, key: 'goal', value: 0),
                       ),
                     ],
                   ),
@@ -190,33 +207,34 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: CircularPercentIndicator(
-              radius: 75,
-              animation: true,
-              animateFromLastPercent: true,
-              addAutomaticKeepAlive: true,
-              percent: precent,
-              center: IconButton(
-                onPressed: () {
-                  precent += 0.1;
-                  setCounter(counter + 1);
-                  setState(() {
-                    if (precent >= 1) {
-                      precent = 0.1;
-                    }
-                  });
-                },
-                icon: Icon(
-                  Icons.touch_app,
-                  size: 50,
-                  color: Color(hueColor),
-                ),
-              ),
-              backgroundColor: Color(hueColor).withOpacity(0.25),
-              progressColor: Color(hueColor),
-            ),
+          CircularPercentIndicatorWidget(
+            precent: precent,
+            counter: counter,
+            onPressed: () {
+              if (precent >= 1) {
+                precent = 0;
+                setState(() {});
+              }
+              precent += (10 / goal) / 10;
+              setingFun(
+                  callerVariable: counter, key: 'counter', value: counter + 1);
+              if (counter == goal) {
+                setingFun(callerVariable: counter, key: 'counter', value: 1);
+              }
+              if (counter == goal - 1) {
+                setingFun(callerVariable: sets, key: 'sets', value: sets + 1);
+
+                Fluttertoast.showToast(
+                  msg: "أحبَّ العملِ إلى اللَّهِ أدومُهُ وإن قلَّ",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Color(hueColor),
+                  textColor: Colors.white,
+                  fontSize: 14.0,
+                );
+              }
+            },
           ),
           const SizedBox(
             height: 10,
@@ -234,157 +252,50 @@ class _HomeScreenState extends State<HomeScreen> {
             visible: isVisiable,
             child: Row(
               children: [
-                Radio(
-                  value: kPrimaryColor[0],
-                  overlayColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[0]),
-                  ),
-                  fillColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[0]),
-                  ),
-                  groupValue: hueColor,
-                  toggleable: true,
+                RaidoWidget(
+                  radioValue: kPrimaryColor[0],
                   onChanged: (value) {
                     setState(() {
                       hueColor = value ?? kPrimaryColor[0];
                     });
                   },
                 ),
-                Radio(
-                  activeColor: Color(kPrimaryColor[1]),
-                  overlayColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[1]),
-                  ),
-                  fillColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[1]),
-                  ),
-                  value: kPrimaryColor[1],
-                  groupValue: hueColor,
+                RaidoWidget(
+                  radioValue: kPrimaryColor[1],
                   onChanged: (value) {
                     setState(() {
-                      hueColor = value!;
+                      hueColor = value ?? kPrimaryColor[1];
                     });
                   },
                 ),
-                Radio(
-                  overlayColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[2]),
-                  ),
-                  fillColor: MaterialStatePropertyAll(
-                    Color(kPrimaryColor[2]),
-                  ),
-                  value: kPrimaryColor[2],
-                  groupValue: hueColor,
+                RaidoWidget(
+                  radioValue: kPrimaryColor[2],
                   onChanged: (value) {
                     setState(() {
-                      hueColor = value!;
+                      hueColor = value ?? kPrimaryColor[2];
                     });
                   },
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButtonWidget(
         color: hueColor,
         onPressed: () {
           precent = 0;
-          setCounter(0);
-          setSets(0);
+          setingFun(
+            callerVariable: counter,
+            key: 'counter',
+            value: 0,
+          );
+          setingFun(
+            callerVariable: sets,
+            key: 'sets',
+            value: 0,
+          );
         },
-      ),
-    );
-  }
-}
-
-class FloatingActionButtonWidget extends StatelessWidget {
-  const FloatingActionButtonWidget({
-    super.key,
-    required this.color,
-    this.onPressed,
-  });
-  final int color;
-  final void Function()? onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: Color(color),
-      shape: const CircleBorder(),
-      onPressed: onPressed,
-      child: const Icon(
-        Icons.refresh,
-        color: Colors.white,
-      ),
-    );
-  }
-}
-
-class TrackingLineWidget extends StatelessWidget {
-  const TrackingLineWidget({
-    super.key,
-    required this.repetationNum,
-    required this.label,
-  });
-  final int repetationNum;
-  final String label;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            repetationNum.toString(),
-            style: TextStyle(
-              fontSize: 22,
-              color: Color(hueColor),
-            ),
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 22,
-              color: Color(hueColor),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomCounterTextButton extends StatelessWidget {
-  const CustomCounterTextButton({
-    super.key,
-    required this.number,
-    this.onTap,
-  });
-  final String number;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            number,
-            style: TextStyle(
-              color: Color(hueColor),
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
-        ),
       ),
     );
   }
