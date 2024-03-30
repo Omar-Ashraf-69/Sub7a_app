@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iste9far/constents.dart';
 import 'package:iste9far/widgets/circular_precent_indicator_widget.dart';
@@ -76,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Color(hueColor),
         leading: IconButton(
           onPressed: () {
@@ -155,49 +157,68 @@ class _HomeScreenState extends State<HomeScreen> {
                       CustomCounterTextButton(
                         number: '1000+',
                         onTap: () {
-                          if(isLateGoalNotPossiable()){
+                          if (isLateGoalNotPossiable()) {
                             setingFun(
-                              callerVariable: counter, key: 'counter', value: 0,);
+                              callerVariable: counter,
+                              key: 'counter',
+                              value: 0,
+                            );
                           }
                           setingFun(
-                              callerVariable: goal, key: 'goal', value: goal +1000,);
-                          
+                            callerVariable: goal,
+                            key: 'goal',
+                            value: goal + 1000,
+                          );
                         },
                       ),
                       CustomCounterTextButton(
                         number: '100+',
                         onTap: () {
-                          if(isLateGoalNotPossiable()){
+                          if (isLateGoalNotPossiable()) {
                             setingFun(
-                              callerVariable: counter, key: 'counter', value: 0,);
+                              callerVariable: counter,
+                              key: 'counter',
+                              value: 0,
+                            );
                           }
                           setingFun(
-                              callerVariable: goal, key: 'goal', value: goal +100,);
-                          
+                            callerVariable: goal,
+                            key: 'goal',
+                            value: goal + 100,
+                          );
                         },
                       ),
                       CustomCounterTextButton(
-                        number: '100',
-                        onTap: (){
-                          if(isLateGoalNotPossiable()){
+                          number: '100',
+                          onTap: () {
+                            if (isLateGoalNotPossiable()) {
+                              setingFun(
+                                callerVariable: counter,
+                                key: 'counter',
+                                value: 0,
+                              );
+                            }
                             setingFun(
-                              callerVariable: counter, key: 'counter', value: 0,);
-                          }
-                          setingFun(
-                              callerVariable: goal, key: 'goal', value: 100,);
-                          
-                        }
-                      ),
+                              callerVariable: goal,
+                              key: 'goal',
+                              value: 100,
+                            );
+                          }),
                       CustomCounterTextButton(
                         number: '33',
                         onTap: () {
-                          if(isLateGoalNotPossiable()){
+                          if (isLateGoalNotPossiable()) {
                             setingFun(
-                              callerVariable: counter, key: 'counter', value: 0,);
+                              callerVariable: counter,
+                              key: 'counter',
+                              value: 0,
+                            );
                           }
                           setingFun(
-                              callerVariable: goal, key: 'goal', value: 33,);
-                          
+                            callerVariable: goal,
+                            key: 'goal',
+                            value: 33,
+                          );
                         },
                       ),
                       CustomCounterTextButton(
@@ -270,9 +291,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }
             },
-          ),
-          const SizedBox(
-            height: 10,
           ),
           TrackingLineWidget(
             label: ' : المجموع',

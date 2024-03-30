@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:iste9far/constents.dart';
 
@@ -14,7 +12,7 @@ class TrackingLineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0),
+      padding: const EdgeInsets.only(top: 3.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,5 +35,3 @@ class TrackingLineWidget extends StatelessWidget {
     );
   }
 }
-
-

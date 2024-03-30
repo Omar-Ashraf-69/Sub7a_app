@@ -15,13 +15,13 @@ class CircularPercentIndicatorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 40.0,
-        bottom: 15,
+        top: 35.0,
+        bottom: 10,
       ),
       child: GestureDetector(
         onTap: onPressed,
         child: CircularPercentIndicator(
-          radius: 120,
+          radius: 100,
           animation: true,
           animateFromLastPercent: true,
           addAutomaticKeepAlive: true,
