@@ -1,14 +1,14 @@
-# Welcome to Iste9far! 🌟
+# Welcome to Sub7a! 🌟
 
 ## Introduction
 
-Iste9far is a simple yet powerful app designed for Muslims to easily count their iste9fars (seeking forgiveness) in a convenient way. This app serves as a digital counter tailored to meet the needs of daily iste9far counting.
+Sub7a is a simple yet powerful app designed for Muslims to easily count their Tasbe7 (seeking forgiveness) in a convenient way. This app serves as a digital counter tailored to meet the needs of daily Tasbe7 counting.
 
 ## Key Features
 
-- **Iste9far Counter:** Effortlessly keep track of your iste9fars with a user-friendly counter.
+- **Tasbe7 Counter:** Effortlessly keep track of your iste9fars with a user-friendly counter.
   
-- **Data Persistence:** Utilizing shared preferences for efficient data storage and retrieval, ensuring your iste9fars are saved even when you close the app.
+- **Data Persistence:** Utilizing shared preferences for efficient data storage and retrieval, ensuring your Tasbe7 are saved even when you close the app.
   
 - **Simplicity:** A straightforward interface focused on functionality for a seamless user experience.
 
@@ -20,7 +20,7 @@ Iste9far is a simple yet powerful app designed for Muslims to easily count their
 
 ## Feedback and Collaboration
 
-Your feedback is invaluable in shaping the future of Iste9far! Whether you have suggestions for improvements, new feature ideas, or general impressions, I welcome your input with open arms. Let's collaborate to make Iste9far even more beneficial for our users.
+Your feedback is invaluable in shaping the future of Sub7a! Whether you have suggestions for improvements, new feature ideas, or general impressions, I welcome your input with open arms. Let's collaborate to make Iste9far even more beneficial for our users.
 
 ## How to Contribute
 
